@@ -3,25 +3,28 @@ from matplotlib import pyplot  as plt
 
 
 # Generalize math functions
-def linearfunc2(x, *arg):
-    a, b = arg[:2]
+def linearfunc2(x, **kwargs):
+    a= kwargs["a"]
+    b = kwargs["b"]
     y = a * x + b
     return y
 
 
-def parabole2(x, *arg):
-    a = arg[0]
+def parabole2(x, **kwargs):
+    a= kwargs["a"]
     y = x ** 2 + a
     return y
 
-def sin(x, *arg):
-    a,b,c = arg
+def sin(x, **kwargs):
+    a = kwargs["a"]
+    b = kwargs["b"]
+    c = kwargs["c"]
     y = a*np.sin(x*b)+c
     return y
 
 
-def generalFunc(func, x, *arg):
-    return func(x, *arg)
+def generalFunc(func, x, **kwargs):
+    return func(x, **kwargs)
 
 
 # Tangent line and function plots
@@ -32,17 +35,17 @@ def calc_plot_derv(p, x, derv_a, derv_b):
     plt.plot(arr, new_y)
 
 
-def plotAll(p, x, derv_a, derv_b, func, *arg):
-    plt.plot(x, generalFunc(func, x, *arg))
+def plotAll(p, x, derv_a, derv_b, func, **kwargs):
+    plt.plot(x, generalFunc(func, x, **kwargs))
     calc_plot_derv(p, x, derv_a, derv_b)
     plt.show()
 
 
-def myDerv(dx, funcToUse, p, x, *arg):
+def myDerv(dx, funcToUse, p, x, **kwargs):
 
 
-    y_x_dx = generalFunc(funcToUse, (x + dx), *arg)  # f(x+dx)
-    y_x = generalFunc(funcToUse, (x), *arg)  # f(x)
+    y_x_dx = generalFunc(funcToUse, (x + dx), **kwargs)  # f(x+dx)
+    y_x = generalFunc(funcToUse, (x), **kwargs)  # f(x)
 
     # Slope: a=(f(x+dx)-f(x))/dx   Intercept: b= y- a*x
     derv_a = (y_x_dx - y_x) / dx  # a of tangent at each point
@@ -50,7 +53,7 @@ def myDerv(dx, funcToUse, p, x, *arg):
 
     # Convert point to index and plot
     itemindex = np.where(np.round(x, 3) == p)
-    plotAll(itemindex[0][0], x, derv_a, derv_b, funcToUse, *arg)
+    plotAll(itemindex[0][0], x, derv_a, derv_b, funcToUse, **kwargs)
 
 
 #   Code
@@ -73,16 +76,12 @@ d={1:sin,
 
 func = d[4]
 
-myDerv(dx, func, p, x, a, b, c)
+myDerv(dx, func, p, x, a = a, b = b, c = c)
 
 
 
 
-def a(**kwrgs):
-    print(kwrgs["a"])
 
-
-a(a=1, b = 2, c=3)
 
 
 
