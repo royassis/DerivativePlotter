@@ -36,7 +36,7 @@ def calc_plot_derv(p, x, derv_a, derv_b):
     print(c)
 
 
-    arr = np.arange(x[p]-c, x[p]+c, 0.1)
+    arr = np.arange(x[p]-3, x[p]+3, 0.1)
     new_y = derv_a[p] * arr + derv_b[p]
     plt.plot(arr, new_y)
 
@@ -75,7 +75,7 @@ a = 2  # if linear function
 b = 5  # if linear and parabolic
 c = 3
 dx = 0.000000000001  # dx
-p = 8
+p = 7
 
 d={1:sin,
    2:parabole2,
@@ -83,9 +83,9 @@ d={1:sin,
    4:sin
    }
 
-func = d[4]
-someNewFunc = (lambda x, **a: np.sin(x)*np.exp(x))
+func = d[2]
+someNewFunc = (lambda x, **a: x**3-5*x)
 
-myDerv(func, p, x, dx, a = a, b = b, c = c)
+myDerv(someNewFunc, p, x, dx, a = a, b = b, c = c)
 
 
